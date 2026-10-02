@@ -1,0 +1,146 @@
+<section class="card">
+  <header class="card-header">
+    <h1 class="titulo">Novo Aluno</h1>
+
+    <a class="link-voltar" routerLink="/">&#8249; Voltar para a lista</a>
+  </header>
+
+  @if (erroGeral()) {
+    <p class="alerta-erro" role="alert">{{ erroGeral() }}</p>
+  }
+
+
+  <form class="formulario" [formGroup]="form" (ngSubmit)="cadastrar()" novalidate>
+
+    <div class="bloco-foto">
+      <div class="foto-preview" [class.com-foto]="fotoPreview()">
+        @if (fotoPreview(); as foto) {
+          <img [src]="foto" alt="Pré-visualização da foto do aluno" />
+        } @else {
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+          </svg>
+        }
+      </div>
+
+      <div class="foto-acoes">
+        <span class="rotulo">Foto <small>(opcional)</small></span>
+        <div class="foto-botoes">
+
+          <label class="btn btn-secundario btn-pequeno" for="foto">
+            {{ fotoPreview() ? 'Trocar foto' : 'Selecionar foto' }}
+          </label>
+          <input id="foto" class="input-arquivo" type="file" accept="image/jpeg,image/png" (change)="aoSelecionarFoto($event)" />
+
+          @if (fotoPreview()) {
+            <button type="button" class="btn btn-remover btn-pequeno" (click)="removerFoto()">Remover</button>
+          }
+        </div>
+        <small class="dica">{{ fotoNome() ?? 'JPG ou PNG, até 5 MB.' }}</small>
+        @if (fotoErro()) {
+          <small class="msg-erro" role="alert">{{ fotoErro() }}</small>
+        }
+      </div>
+    </div>
+
+
+    <div class="grid">
+      <div class="campo campo-inteiro">
+        <label for="nomeCompleto">Nome completo <span class="obrigatorio">*</span></label>
+        <input
+          id="nomeCompleto"
+          type="text"
+          formControlName="nomeCompleto"
+          maxlength="120"
+          autocomplete="name"
+          placeholder="Ex.: Ana D'Ávila Souza-Lima"
+          [class.invalido]="campoInvalido('nomeCompleto')"
+          [attr.aria-invalid]="campoInvalido('nomeCompleto')"
+        />
+        @if (campoInvalido('nomeCompleto')) {
+          <small class="msg-erro">{{ mensagemErro('nomeCompleto') }}</small>
+        }
+      </div>
+
+      <div class="campo campo-inteiro">
+        <label for="email">E-mail <span class="obrigatorio">*</span></label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="nome@email.com"
+          [class.invalido]="campoInvalido('email')"
+          [attr.aria-invalid]="campoInvalido('email')"
+        />
+        @if (campoInvalido('email')) {
+          <small class="msg-erro">{{ mensagemErro('email') }}</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="cpf">CPF <span class="obrigatorio">*</span></label>
+        <input
+          id="cpf"
+          type="text"
+          inputmode="numeric"
+          formControlName="cpf"
+          placeholder="000.000.000-00"
+          maxlength="14"
+          (input)="aoDigitarCpf($event)"
+          [class.invalido]="campoInvalido('cpf')"
+          [attr.aria-invalid]="campoInvalido('cpf')"
+        />
+        @if (campoInvalido('cpf')) {
+          <small class="msg-erro">{{ mensagemErro('cpf') }}</small>
+        }
+      </div>
+
+      <div class="campo">
+        <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
+        <input
+          id="telefone"
+          type="tel"
+          inputmode="numeric"
+          formControlName="telefone"
+          autocomplete="tel-national"
+          placeholder="(00) 00000-0000"
+          maxlength="15"
+          (input)="aoDigitarTelefone($event)"
+          [class.invalido]="campoInvalido('telefone')"
+          [attr.aria-invalid]="campoInvalido('telefone')"
+        />
+        @if (campoInvalido('telefone')) {
+          <small class="msg-erro">{{ mensagemErro('telefone') }}</small>
+        }
+      </div>
+
+
+      <div class="campo">
+        <span class="rotulo">Matrícula</span>
+        <span class="valor-somente-leitura">Gerada automaticamente</span>
+      </div>
+
+      <div class="campo">
+        <span class="rotulo">Status</span>
+        <span class="valor-somente-leitura"><span class="badge-ativo">Ativo</span></span>
+      </div>
+    </div>
+
+    <p class="legenda"><span class="obrigatorio">*</span> Campos obrigatórios</p>
+
+
+    <div class="botoes">
+      <a class="btn btn-secundario" routerLink="/">Cancelar</a>
+
+      <button type="submit" class="btn btn-primario" [disabled]="form.invalid || salvando()">
+        @if (salvando()) {
+          <span class="spinner" aria-hidden="true"></span> Cadastrando...
+        } @else {
+          Cadastrar
+        }
+      </button>
+    </div>
+  </form>
+</section>

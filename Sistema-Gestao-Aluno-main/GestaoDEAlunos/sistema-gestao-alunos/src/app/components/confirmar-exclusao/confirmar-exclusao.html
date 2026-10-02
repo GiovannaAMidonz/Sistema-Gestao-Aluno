@@ -1,0 +1,17 @@
+<dialog #dialogo aria-labelledby="titulo-exclusao" aria-describedby="descricao-exclusao"
+  (cancel)="aoCancelar($event)" (close)="aoFechar()">
+  <h2 id="titulo-exclusao">Confirmar Exclusão</h2>
+  @if (aluno(); as a) {
+    <p id="descricao-exclusao">Deseja realmente excluir o aluno <strong>{{ a.nomeCompleto }}</strong>
+      (matrícula <strong>{{ a.matricula }}</strong>)?</p>
+    <p>Ele deixará de aparecer na lista de alunos ativos. O histórico do cadastro será preservado.</p>
+  }
+  @if (erro()) { <p class="alerta-erro" role="alert">{{ erro() }}</p> }
+  <div class="acoes-modal">
+    <button type="button" class="btn btn-cancelar" autofocus [disabled]="processando()" (click)="cancelar.emit()">Cancelar</button>
+    <button type="button" class="btn btn-primario" [disabled]="processando()" (click)="confirmar.emit()">
+      @if (processando()) { <span class="spinner-modal" aria-hidden="true"></span> Excluindo... }
+      @else { Excluir }
+    </button>
+  </div>
+</dialog>

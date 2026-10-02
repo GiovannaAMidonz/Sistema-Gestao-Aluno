@@ -1,0 +1,66 @@
+<section class="card">
+  <header class="card-header">
+    <h1 class="titulo">Detalhes do Aluno</h1>
+    <a class="btn btn-secundario" routerLink="/">Voltar</a>
+  </header>
+
+  @if (erro()) {
+    <p class="alerta-erro">{{ erro() }}</p>
+  }
+
+
+  @if (aluno(); as a) {
+    <div class="perfil">
+      <div class="foto">
+        @if (a.fotoUrl) {
+          <img [src]="a.fotoUrl" [alt]="'Foto de ' + a.nomeCompleto" />
+        } @else {
+
+          <span>{{ a.nomeCompleto.charAt(0) }}</span>
+        }
+      </div>
+
+      <div>
+        <h2 class="nome">{{ a.nomeCompleto }}</h2>
+
+        <span class="badge" [class.badge-ativo]="a.status === 'ATIVO'" [class.badge-inativo]="a.status === 'INATIVO'">
+          {{ a.status === 'ATIVO' ? 'Ativo' : 'Inativo' }}
+        </span>
+      </div>
+    </div>
+
+    <dl class="dados">
+      <div>
+        <dt>Matrícula</dt>
+        <dd>{{ a.matricula }}</dd>
+      </div>
+      <div>
+        <dt>CPF</dt>
+        <dd>{{ formatarCpf(a.cpf) }}</dd>
+      </div>
+      <div>
+        <dt>E-mail</dt>
+        <dd>{{ a.email }}</dd>
+      </div>
+      <div>
+        <dt>Telefone</dt>
+        <dd>{{ formatarTelefone(a.telefone) }}</dd>
+      </div>
+    </dl>
+
+    @if (ehAdmin()) {
+      <div class="botoes">
+        <a class="btn btn-azul" [routerLink]="['/alunos', a.id, 'editar']">Editar</a>
+        <button type="button" class="btn btn-cinza" [disabled]="processando()" (click)="alternarArquivamento()">
+          {{ a.status === 'ATIVO' ? 'Arquivar' : 'Reativar' }}
+        </button>
+        <button type="button" class="btn btn-primario" [disabled]="processando()" (click)="abrirExclusao()">Excluir</button>
+      </div>
+    }
+  } @else if (!erro()) {
+    <p class="carregando">Carregando...</p>
+  }
+</section>
+
+<app-confirmar-exclusao [aluno]="modalExclusaoAberto() ? aluno() : null" [processando]="processando()"
+  [erro]="erroExclusao()" (confirmar)="confirmarExclusao()" (cancelar)="cancelarExclusao()" />

@@ -1,0 +1,101 @@
+<section class="card">
+  <header class="card-header">
+    <h1 class="titulo">Editar Aluno</h1>
+    <a class="link-voltar" routerLink="/">&#8249; Voltar para a lista</a>
+  </header>
+
+
+  @if (carregando()) {
+    <p class="carregando" role="status">Carregando dados do aluno...</p>
+  } @else if (erroCarregamento()) {
+    <p class="alerta-erro" role="alert">{{ erroCarregamento() }}</p>
+  } @else if (aluno(); as a) {
+    @if (erroGeral()) {
+      <p class="alerta-erro" role="alert">{{ erroGeral() }}</p>
+    }
+    <form class="formulario" [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+
+      <div class="bloco-foto">
+        <div class="foto-preview" [class.com-foto]="fotoPreview()">
+          @if (fotoPreview(); as foto) {
+            <img [src]="foto" [alt]="'Foto de ' + a.nomeCompleto" />
+          } @else {
+            <svg viewBox="0 0 24 24" role="img" aria-label="Aluno sem foto">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+            </svg>
+          }
+        </div>
+        <div class="foto-acoes">
+          <span class="rotulo">Foto <small>(opcional)</small></span>
+          <div class="foto-botoes">
+            <label class="btn btn-secundario btn-pequeno" for="foto">{{ fotoPreview() ? 'Trocar foto' : 'Selecionar foto' }}</label>
+            <input id="foto" class="input-arquivo" type="file" accept="image/jpeg,image/png" (change)="aoSelecionarFoto($event)" />
+            @if (fotoPreview()) {
+              <button type="button" class="btn btn-remover btn-pequeno" (click)="removerFoto()">Remover</button>
+            }
+          </div>
+          <small class="dica">{{ fotoNome() ?? 'JPG ou PNG, até 5 MB.' }}</small>
+          @if (fotoErro()) { <small class="msg-erro" role="alert">{{ fotoErro() }}</small> }
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="campo campo-inteiro">
+          <label for="nomeCompleto">Nome completo <span class="obrigatorio">*</span></label>
+          <input id="nomeCompleto" type="text" formControlName="nomeCompleto" maxlength="120" autocomplete="name"
+            [class.invalido]="campoInvalido('nomeCompleto')" [attr.aria-invalid]="campoInvalido('nomeCompleto')" />
+          @if (campoInvalido('nomeCompleto')) { <small class="msg-erro">{{ mensagemErro('nomeCompleto') }}</small> }
+        </div>
+        <div class="campo campo-inteiro">
+          <label for="email">E-mail <span class="obrigatorio">*</span></label>
+          <input id="email" type="email" formControlName="email" maxlength="150" autocomplete="email"
+            [class.invalido]="campoInvalido('email')" [attr.aria-invalid]="campoInvalido('email')" />
+          @if (campoInvalido('email')) { <small class="msg-erro">{{ mensagemErro('email') }}</small> }
+        </div>
+        <div class="campo">
+          <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
+          <input id="telefone" type="tel" inputmode="numeric" maxlength="15" formControlName="telefone"
+            autocomplete="tel-national" (input)="aoDigitarTelefone($event)"
+            [class.invalido]="campoInvalido('telefone')" [attr.aria-invalid]="campoInvalido('telefone')" />
+          @if (campoInvalido('telefone')) { <small class="msg-erro">{{ mensagemErro('telefone') }}</small> }
+        </div>
+        <fieldset class="campo campo-status">
+          <legend class="rotulo">Status <span class="obrigatorio">*</span></legend>
+          <div class="opcoes-status">
+            <label><input type="radio" formControlName="status" value="ATIVO" /><span class="bolinha-ativo"></span> Ativo</label>
+            <label><input type="radio" formControlName="status" value="INATIVO" /><span class="bolinha-inativo"></span> Inativo</label>
+          </div>
+          @if (campoInvalido('status')) { <small class="msg-erro">{{ mensagemErro('status') }}</small> }
+        </fieldset>
+
+
+        <div class="campo">
+          <span class="rotulo">Matrícula</span>
+          <span class="valor-somente-leitura" aria-describedby="aviso-bloqueio">{{ a.matricula }}</span>
+        </div>
+        <div class="campo">
+          <span class="rotulo">CPF</span>
+          <span class="valor-somente-leitura" aria-describedby="aviso-bloqueio">{{ cpfFormatado() }}</span>
+        </div>
+        <p id="aviso-bloqueio" class="explicacao-bloqueio campo-inteiro">
+          <span aria-hidden="true">&#128274;</span>
+          Matrícula e CPF não podem ser alterados porque identificam o aluno de forma única no sistema e são usados para manter o histórico dele.
+        </p>
+      </div>
+
+
+      <p class="legenda" aria-live="polite">
+        @if (!temAlteracoes()) { Nenhuma alteração para salvar. }
+        @else if (form.invalid) { Corrija os campos destacados para salvar. }
+      </p>
+      <div class="botoes">
+        <a class="btn btn-secundario" routerLink="/">Cancelar</a>
+        <button type="submit" class="btn btn-primario" [disabled]="!podeSalvar()">
+          @if (salvando()) { <span class="spinner" aria-hidden="true"></span> Salvando... }
+          @else { Salvar alterações }
+        </button>
+      </div>
+    </form>
+  }
+</section>

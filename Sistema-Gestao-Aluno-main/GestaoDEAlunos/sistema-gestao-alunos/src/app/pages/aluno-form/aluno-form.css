@@ -1,0 +1,12 @@
+
+.carregando { padding: 28px 0; color: var(--cinza-texto); }
+.campo-status { border: 0; margin: 0; padding: 0; min-width: 0; }
+.campo-status legend { margin-bottom: 10px; }
+.opcoes-status { display: flex; flex-wrap: wrap; gap: 18px; }
+.opcoes-status label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.opcoes-status input { accent-color: var(--azul); width: 16px; height: 16px; }
+.bolinha-ativo, .bolinha-inativo { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.bolinha-ativo { background: #22c55e; }
+.bolinha-inativo { background: #9ca3af; }
+.explicacao-bloqueio { margin: 0; padding: 12px; background: #f1f5ff; border-radius: 8px; font-size: 13px; }
+.legenda { text-align: right; min-height: 16px; }
