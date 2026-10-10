@@ -20,19 +20,11 @@ type CampoForm = 'nomeCompleto' | 'email' | 'cpf' | 'telefone';
 
 
 
-
-
-
-
-
-
-
-
 @Component({
   selector: 'app-novo-aluno',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './novo-aluno.html',
-  styleUrl: './novo-aluno.css',
+  templateUrl: './novo-aluno.component.html',
+  styleUrls: ['./novo-aluno.component.css'],
   host: {
 
     '(window:beforeunload)': 'aoFecharJanela($event)',

@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { Aluno } from '../../models/aluno';
-import { AlunoFormComponent } from './aluno-form';
+import { AlunoFormComponent } from './aluno-form.component';
 
 const aluno: Aluno = {
   id: 7, matricula: 'MAT-7', cpf: '12345678909', nomeCompleto: 'Ana Souza',

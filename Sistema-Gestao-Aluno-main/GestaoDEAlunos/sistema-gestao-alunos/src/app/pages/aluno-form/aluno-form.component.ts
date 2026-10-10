@@ -14,8 +14,8 @@ type CampoForm = 'nomeCompleto' | 'email' | 'telefone' | 'status';
 @Component({
   selector: 'app-aluno-form',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './aluno-form.html',
-  styleUrls: ['../novo-aluno/novo-aluno.css', './aluno-form.css'],
+  templateUrl: './aluno-form.component.html',
+  styleUrls: ['../novo-aluno/novo-aluno.component.css', './aluno-form.component.css'],
   host: { '(window:beforeunload)': 'aoFecharJanela($event)' },
 })
 export class AlunoFormComponent implements OnInit, TemAlteracoesNaoSalvas {

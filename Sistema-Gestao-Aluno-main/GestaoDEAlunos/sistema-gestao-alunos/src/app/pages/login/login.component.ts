@@ -10,8 +10,8 @@ type CampoLogin = 'usuario' | 'senha';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);

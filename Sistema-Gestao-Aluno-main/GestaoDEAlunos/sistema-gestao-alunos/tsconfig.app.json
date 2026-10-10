@@ -9,7 +9,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/pages/aluno-detalhes/aluno-detalhes.component.spec.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

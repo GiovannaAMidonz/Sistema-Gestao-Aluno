@@ -13,8 +13,8 @@ import { AuthService } from '../../services/auth';
 @Component({
   selector: 'app-aluno-detalhes',
   imports: [RouterLink, ConfirmarExclusaoComponent],
-  templateUrl: './aluno-detalhes.html',
-  styleUrl: './aluno-detalhes.css',
+  templateUrl: './aluno-detalhes.component.html',
+  styleUrls: ['./aluno-detalhes.component.css'],
 })
 export class AlunoDetalhesComponent implements OnInit {
   private readonly alunoService = inject(AlunoService);

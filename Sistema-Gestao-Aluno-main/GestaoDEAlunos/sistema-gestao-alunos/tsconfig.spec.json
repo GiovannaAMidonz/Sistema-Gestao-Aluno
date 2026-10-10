@@ -10,5 +10,5 @@
   "include": [
     "src/**/*.d.ts",
     "src/**/*.spec.ts"
-  ]
+, "src/app/pages/aluno-detalhes/aluno-detalhes.component.spec.ts"  ]
 }

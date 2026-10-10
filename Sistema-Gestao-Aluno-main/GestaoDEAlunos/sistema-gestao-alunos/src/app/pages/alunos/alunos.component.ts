@@ -8,12 +8,6 @@ import { Aluno, StatusAluno } from '../../models/aluno';
 import { ConfirmarExclusaoComponent } from '../../components/confirmar-exclusao/confirmar-exclusao';
 import { AuthService } from '../../services/auth';
 
-
-
-
-
-
-
 @Component({
   selector: 'app-alunos',
   imports: [RouterLink, ConfirmarExclusaoComponent],
