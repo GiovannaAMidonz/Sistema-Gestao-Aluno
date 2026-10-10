@@ -92,7 +92,7 @@ cd student-management-api
 Execute a aplicação:
 
 ```bash
-mvn spring-boot:run
+mvn spring-boot:run ou .\mvnw.cmd spring-boot:run
 ```
 
 Ou execute a classe principal pelo IntelliJ IDEA:
