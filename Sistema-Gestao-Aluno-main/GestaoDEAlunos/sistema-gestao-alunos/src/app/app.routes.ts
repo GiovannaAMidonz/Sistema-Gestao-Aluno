@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AlunosComponent } from './pages/alunos/alunos';
+import { AlunosComponent } from './pages/alunos/alunos.component';
 import { AlunoFormComponent } from './pages/aluno-form/aluno-form';
 import { AlunoDetalhesComponent } from './pages/aluno-detalhes/aluno-detalhes';
 import { NovoAlunoComponent } from './pages/novo-aluno/novo-aluno';

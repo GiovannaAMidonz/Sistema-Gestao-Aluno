@@ -4,7 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideRouter } from '@angular/router';
 import { AuthService } from '../../services/auth';
 import { Aluno } from '../../models/aluno';
-import { AlunosComponent } from './alunos';
+import { AlunosComponent } from './alunos.component';
 
 describe('AlunosComponent', () => {
   let component: AlunosComponent;

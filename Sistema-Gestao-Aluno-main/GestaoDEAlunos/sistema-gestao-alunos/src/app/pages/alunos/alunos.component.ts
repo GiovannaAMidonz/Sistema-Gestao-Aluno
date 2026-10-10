@@ -17,8 +17,8 @@ import { AuthService } from '../../services/auth';
 @Component({
   selector: 'app-alunos',
   imports: [RouterLink, ConfirmarExclusaoComponent],
-  templateUrl: './alunos.html',
-  styleUrl: './alunos.css',
+  templateUrl: './alunos.component.html',
+  styleUrl: './alunos.component.css',
 })
 export class AlunosComponent implements OnInit {
   private readonly alunoService = inject(AlunoService);
