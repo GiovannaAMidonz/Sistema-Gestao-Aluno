@@ -132,10 +132,23 @@ public class AlunoService {
 
         Aluno aluno = buscarAlunoVigente(id);
 
-        aluno.setStatus(StatusAlunosEnum.INATIVO);
+        aluno.setUsuarioExcluido(true);
+        aluno.setDataExclusao(LocalDateTime.now());
         aluno.setAtualizadoEm(LocalDateTime.now());
 
         alunoRepository.save(aluno);
+    }
+
+    public void restaurar(Long id) {
+
+        Aluno aluno = alunoRepository.findById(id)
+                .orElseThrow(() -> new AlunoNaoEncontradoException(id));
+
+                aluno.setUsuarioExcluido(false);
+                aluno.setDataExclusao(LocalDateTime.now());
+                aluno.setAtualizadoEm(LocalDateTime.now());
+
+                alunoRepository.save(aluno);
     }
 
     private Aluno buscarAlunoVigente(Long id) {
