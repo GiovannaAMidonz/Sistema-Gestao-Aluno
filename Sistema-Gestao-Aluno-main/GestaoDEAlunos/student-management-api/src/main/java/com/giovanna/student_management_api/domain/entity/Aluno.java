@@ -55,22 +55,13 @@ public class Aluno {
 
     private LocalDateTime atualizadoEm;
 
-    public Aluno(
-            String matricula,
-            String nomeCompleto,
-            String cpf,
-            String email,
-            String telefone,
-            String fotoUrl,
-            StatusAlunosEnum status
-    ) {
-        this.matricula = matricula;
-        this.nomeCompleto = nomeCompleto;
-        this.cpf = cpf;
-        this.email = email;
-        this.telefone = telefone;
-        this.fotoUrl = fotoUrl;
-        this.status = status;
+    @PrePersist
+    public void prePersist() {
+        this.atualizadoEm = LocalDateTime.now();
     }
 
+    @PreUpdate
+    public void preUpdate() {
+        this.atualizadoEm = LocalDateTime.now();
+    }
 }
