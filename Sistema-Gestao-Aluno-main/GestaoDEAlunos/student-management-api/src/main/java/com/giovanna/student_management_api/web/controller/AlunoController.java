@@ -69,4 +69,13 @@ public class AlunoController {
         alunoService.excluir(id);
         return ResponseEntity.noContent().build();
     }
+    @PatchMapping("/{id}/restaurar")
+    public ResponseEntity<Void> restaurar(
+            @PathVariable Long id
+    ) {
+        alunoService.restaurar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
