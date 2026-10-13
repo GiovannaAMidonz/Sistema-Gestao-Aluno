@@ -30,31 +30,51 @@ public class AlunoService {
     }
 
 
-    public PageResponseDTO<AlunoResponseDTO> listar
-            (String busca, String status, int pagina, int tamanho,
-             String ordenarPor, String direcao)
-    {
+    public PageResponseDTO<AlunoResponseDTO> listar(
+            String busca,
+            String status,
+            int pagina,
+            int tamanho,
+            String ordenarPor,
+            String direcao
+    ) {
         StatusAlunosEnum statusFiltro = converterStatus(status);
 
-        Sort.Direction direcaoOrdenacao = "desc".equalsIgnoreCase(direcao)
+        Sort.Direction direcaoOrdenacao =
+                "desc".equalsIgnoreCase(direcao)
                 ? Sort.Direction.DESC
                 : Sort.Direction.ASC;
+
         String campoOrdenacao = (ordenarPor == null || ordenarPor.isBlank()) ? "nomeCompleto" : ordenarPor;
 
-        PageRequest paginacao = PageRequest.of(pagina, tamanho, Sort.by(direcaoOrdenacao, campoOrdenacao));
+        PageRequest paginacao =
+                PageRequest.of(
+                        pagina,
+                        tamanho,
+                        Sort.by(direcaoOrdenacao, campoOrdenacao)
+                );
 
         String buscaNormalizada = busca == null ? "" : busca.trim();
 
-        Page<Aluno> resultado = alunoRepository.buscar(buscaNormalizada, statusFiltro, paginacao);
+        Page<Aluno> resultado =
+                alunoRepository.buscar(
+                        buscaNormalizada,
+                        statusFiltro,
+                        paginacao
+                );
 
         return new PageResponseDTO<>(
                 resultado.map(AlunoMapper::toResponseDTO)
         );
-
+       /*
+        1 Recebe filtros
+        2 Monta a paginação
+        3 Chama o Repository
+        4 Converte Entity → DTO*/
     }
 
     public AlunoResponseDTO buscarPorId(Long id){
-        return new AlunoResponseDTO(buscarAlunoVigente(id));
+        return AlunoMapper.toResponseDTO(buscarAlunoVigente(id));
     }
 
     public AlunoResponseDTO cadastrar(AlunoRequestDTO dto){
@@ -63,7 +83,7 @@ public class AlunoService {
         String telefoneSomenteDigitos = dto.getTelefone().replaceAll("\\D","");
 
         String emailNormalizado = dto.getEmail().trim().toLowerCase();
-
+        /* tem que ver se o cpf do aluno excluído se enquadra na lógica*/
         if(alunoRepository.existsByCpf(cpfSomenteDigitos)){
             throw new ConflitoException("Já existe um aluno cadastrado com este CPF.");
         }
@@ -82,7 +102,7 @@ public class AlunoService {
                 .status(StatusAlunosEnum.ATIVO)
                 .build();
         Aluno salvo = alunoRepository.save(aluno);
-        return new AlunoResponseDTO(salvo);
+        return AlunoMapper.toResponseDTO(salvo);
     }
 
 
@@ -90,7 +110,6 @@ public class AlunoService {
         Aluno aluno = buscarAlunoVigente(id);
 
         String emailNormalizado = dto.getEmail().trim().toLowerCase();
-
 
         if (alunoRepository.existsByEmailIgnoreCaseAndUsuarioExcluidoFalseAndIdNot(emailNormalizado, id)) {
             throw new ConflitoException("Já existe outro aluno cadastrado com este e-mail.");
@@ -101,11 +120,10 @@ public class AlunoService {
         aluno.setTelefone(dto.getTelefone().replaceAll("\\D", ""));
         aluno.setFotoUrl(dto.getFotoUrl());
         aluno.setStatus(dto.getStatus());
-        aluno.setAtualizadoEm(LocalDateTime.now());
-
+        //aluno.setAtualizadoEm(LocalDateTime.now());
 
         Aluno salvo = alunoRepository.save(aluno);
-        return new AlunoResponseDTO(salvo);
+        return AlunoMapper.toResponseDTO(salvo);
     }
 
 
