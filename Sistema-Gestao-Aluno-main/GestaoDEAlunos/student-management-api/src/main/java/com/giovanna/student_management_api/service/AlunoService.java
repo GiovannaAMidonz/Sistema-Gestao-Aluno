@@ -13,6 +13,7 @@ import com.giovanna.student_management_api.web.dto.PageResponseDTO;
 import com.giovanna.student_management_api.mapper.AlunoMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -145,7 +146,7 @@ public class AlunoService {
                 .orElseThrow(() -> new AlunoNaoEncontradoException(id));
 
                 aluno.setUsuarioExcluido(false);
-                aluno.setDataExclusao(LocalDateTime.now());
+                aluno.setDataExclusao(null);
                 aluno.setAtualizadoEm(LocalDateTime.now());
 
                 alunoRepository.save(aluno);
@@ -170,4 +171,38 @@ public class AlunoService {
         return String.format("%d%03d", ano, proximoSequencial);
     }
 
+    public PageResponseDTO<AlunoResponseDTO> listarExcluidos(
+            String busca,
+            int pagina,
+            int tamanho,
+            String ordenarPor,
+            String direcao
+    ) {
+
+        Sort.Direction direcaoOrdenacao =
+                "desc".equalsIgnoreCase(direcao)
+                        ? Sort.Direction.DESC
+                        : Sort.Direction.ASC;
+
+        String campoOrdenacao = (ordenarPor == null || ordenarPor.isBlank()) ? "nomeCompleto" : ordenarPor;
+
+        PageRequest paginacao =
+                PageRequest.of(
+                        pagina,
+                        tamanho,
+                        Sort.by(direcaoOrdenacao, campoOrdenacao)
+                );
+
+        String buscaNormalizada = busca == null ? "" : busca.trim();
+
+        Page<Aluno> resultado =
+                alunoRepository.buscarExcluidos(
+                        buscaNormalizada,
+                        paginacao
+                );
+
+        return new PageResponseDTO<>(
+                resultado.map(AlunoMapper::toResponseDTO)
+        );
+    }
 }

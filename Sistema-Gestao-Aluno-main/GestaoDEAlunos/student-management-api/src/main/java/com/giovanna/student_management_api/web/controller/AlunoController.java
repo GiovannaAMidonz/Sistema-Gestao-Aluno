@@ -76,6 +76,24 @@ public class AlunoController {
         alunoService.restaurar(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/excluidos")
+    public ResponseEntity<PageResponseDTO<AlunoResponseDTO>> listarExcluidos(
+            @RequestParam(required = false) String busca,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "10") int tamanho,
+            @RequestParam(defaultValue = "nomeCompleto") String ordenarPor,
+            @RequestParam(defaultValue = "asc") String direcao
+    ){
+        return ResponseEntity.ok(
+                alunoService.listarExcluidos(
+                        busca,
+                        pagina,
+                        tamanho,
+                        ordenarPor,
+                        direcao
+                )
+        );
+    }
 
 
 }

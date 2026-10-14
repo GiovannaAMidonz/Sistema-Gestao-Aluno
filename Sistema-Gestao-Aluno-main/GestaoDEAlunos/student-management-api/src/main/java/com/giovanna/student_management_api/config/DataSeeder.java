@@ -39,7 +39,16 @@ public class DataSeeder implements CommandLineRunner {
 
             StatusAlunosEnum status = (i % 4 == 0) ? StatusAlunosEnum.INATIVO : StatusAlunosEnum.ATIVO;
 
-            Aluno aluno = new Aluno(matricula, NOMES[i], cpf, email, telefone, null, status);
+            Aluno aluno = Aluno.builder()
+                    .matricula(matricula)
+                    .nomeCompleto(NOMES[i])
+                    .cpf(cpf)
+                    .email(email)
+                    .telefone(telefone)
+                    .fotoUrl(null)
+                    .status(status)
+                    .build();
+
             alunoRepository.save(aluno);
         }
     }

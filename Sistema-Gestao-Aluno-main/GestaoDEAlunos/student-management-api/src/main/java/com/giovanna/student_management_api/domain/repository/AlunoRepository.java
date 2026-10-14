@@ -33,4 +33,19 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     Page<Aluno> buscar(@Param("busca") String busca,
                        @Param("status") StatusAlunosEnum status,
                        Pageable pageable);
+
+    @Query("""
+        SELECT a FROM Aluno a
+        WHERE a.usuarioExcluido = true
+          AND (
+                :busca IS NULL
+                OR :busca = ''
+                OR LOWER(a.nomeCompleto) LIKE LOWER(CONCAT('%', :busca, '%'))
+                OR a.matricula LIKE CONCAT(:busca, '%')
+          )
+        """)
+    Page<Aluno> buscarExcluidos(
+            @Param("busca") String busca,
+            Pageable pageable
+    );
 }
