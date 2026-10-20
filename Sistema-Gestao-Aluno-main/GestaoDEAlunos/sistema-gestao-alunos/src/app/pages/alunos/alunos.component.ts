@@ -2,7 +2,7 @@ import { Component, DestroyRef, OnInit, computed, inject, signal } from '@angula
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { AlunoService } from '../../services/aluno';
+import { AlunoService } from '../../services/aluno.service';
 import { NotificacaoService } from '../../services/notificacao';
 import { Aluno, StatusAluno } from '../../models/aluno';
 import { ConfirmarExclusaoComponent } from '../../components/confirmar-exclusao/confirmar-exclusao';

@@ -1,6 +1,11 @@
 <section class="card">
   <header class="card-header">
-    <h1 class="titulo">Detalhes do Aluno</h1>
+    <h1 class="titulo">Alunos Excluídos</h1>
     <a class="btn btn-secundario" routerLink="/">Voltar</a>
   </header>
+
+@for (aluno of alunos(); track aluno.id) {
+  <p>{{ aluno.matricula }}</p>
+  <p>{{ aluno.nomeCompleto }}</p>
+}
 </section>

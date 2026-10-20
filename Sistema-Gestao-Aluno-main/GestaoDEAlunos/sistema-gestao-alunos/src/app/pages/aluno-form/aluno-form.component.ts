@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Aluno, AtualizarAlunoRequest, StatusAluno } from '../../models/aluno';
 import { TemAlteracoesNaoSalvas } from '../../guards/alteracoes-nao-salvas.guard';
-import { AlunoService } from '../../services/aluno';
+import { AlunoService } from '../../services/aluno.service';
 import { NotificacaoService } from '../../services/notificacao';
 import { mascaraCpf, mascaraTelefone, nomeCompletoValidator, somenteDigitos, telefoneValidator, validarArquivoFoto } from '../../validators/aluno-validators';
 

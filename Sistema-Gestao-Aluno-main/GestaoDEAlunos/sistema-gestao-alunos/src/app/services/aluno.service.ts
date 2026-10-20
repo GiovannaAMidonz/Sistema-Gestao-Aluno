@@ -49,6 +49,36 @@ export class AlunoService {
   }
 
 
+  listarExcluidos( filtro: Omit<FiltroAlunos, 'status'> = {} ): Observable<PageResponse<Aluno>> {
+
+  let params = new HttpParams();
+
+  if (filtro.busca?.trim()) {
+    params = params.set('busca', filtro.busca.trim());
+  }
+
+  if (filtro.pagina != null) {
+    params = params.set('pagina', filtro.pagina);
+  }
+
+  if (filtro.tamanho != null) {
+    params = params.set('tamanho', filtro.tamanho);
+  }
+
+  if (filtro.ordenarPor) {
+    params = params.set('ordenarPor', filtro.ordenarPor);
+  }
+
+  if (filtro.direcao) {
+    params = params.set('direcao', filtro.direcao);
+  }
+
+  return this.http.get<PageResponse<Aluno>>(
+    `${this.apiUrl}/excluidos`,
+    { params }
+  );
+}
+
   buscarPorId(id: number): Observable<Aluno> {
     return this.http.get<Aluno>(`${this.apiUrl}/${id}`);
   }

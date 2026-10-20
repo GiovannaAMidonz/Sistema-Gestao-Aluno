@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { AlunoService } from '../../services/aluno';
+import { AlunoService } from '../../services/aluno.service';
 import { Aluno, AtualizarAlunoRequest } from '../../models/aluno';
 import { NotificacaoService } from '../../services/notificacao';
 import { ConfirmarExclusaoComponent } from '../../components/confirmar-exclusao/confirmar-exclusao';

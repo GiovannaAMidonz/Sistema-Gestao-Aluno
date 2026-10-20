@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AlunoService } from '../../services/aluno';
+import { AlunoService } from '../../services/aluno.service';
 import { NotificacaoService } from '../../services/notificacao';
 import { NovoAlunoRequest } from '../../models/aluno';
 import { TemAlteracoesNaoSalvas } from '../../guards/alteracoes-nao-salvas.guard';
