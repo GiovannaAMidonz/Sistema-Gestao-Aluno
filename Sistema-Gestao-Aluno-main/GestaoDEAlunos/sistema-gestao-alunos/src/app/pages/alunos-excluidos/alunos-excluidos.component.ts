@@ -23,7 +23,7 @@ export class AlunosExcluidosComponent implements OnInit {
   readonly carregando = signal(false);
   readonly notificacao = inject(NotificacaoService);
 
-  readonly status = signal<StatusAluno | ''>('');
+  
 
   readonly paginaAtual = signal(0);
   readonly totalPaginas = signal(0);
@@ -55,12 +55,7 @@ aoDigitarBusca(evento: Event): void {
   }
 
 
-  aoMudarStatus(evento: Event): void {
-    const valor = (evento.target as HTMLSelectElement).value as StatusAluno | '';
-    this.status.set(valor);
-    this.paginaAtual.set(0);
-    this.carregarAlunosExcluidos();
-  }
+ 
 
   irParaPagina(pagina: number): void {
 
@@ -79,4 +74,34 @@ aoDigitarBusca(evento: Event): void {
     this.irParaPagina(this.paginaAtual() + 1);
   }
   
+  statusLabel(status: StatusAluno): string {
+    return status === 'ATIVO' ? 'Ativo' : 'Inativo';
+  }
+
+  restaurarAluno(id: number): void {
+
+  this.alunoService
+    .restaurar(id)
+    .subscribe({
+
+      next: () => {
+
+        console.log('Aluno restaurado com sucesso');
+
+        this.carregarAlunosExcluidos();
+
+      },
+
+      error: (err) => {
+
+        console.error(
+          'Erro ao restaurar aluno',
+          err
+        );
+
+      }
+
+    });
+
+}
 }
