@@ -16,12 +16,18 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       { path: '', component: AlunosComponent, title: 'Alunos' },
+      
       {
         path: 'alunos/novo',
         component: NovoAlunoComponent,
         title: 'Novo Aluno',
         canDeactivate: [alteracoesNaoSalvasGuard],
       },
+      { path: 'alunos/excluidos',
+        component: AlunosExcluidosComponent,
+        title: 'Alunos Excluídos'
+        },
+
 
       { path: 'alunos/:id',
          component: AlunoDetalhesComponent, 
@@ -34,10 +40,7 @@ export const routes: Routes = [
           canDeactivate: [alteracoesNaoSalvasGuard]
          },
 
-      { path: 'alunos/excluidos',
-         component: AlunosExcluidosComponent, 
-         title: 'Alunos Excluídos'
-         },
+         
     ],
   },
   { path: '**', redirectTo: '' },

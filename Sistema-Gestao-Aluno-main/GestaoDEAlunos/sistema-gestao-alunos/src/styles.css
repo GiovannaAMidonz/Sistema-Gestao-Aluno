@@ -86,9 +86,10 @@ textarea {
 }
 
 .btn-primario {
-  background: var(--vermelho);
+  background: var(--azul);
   color: #fff;
 }
+
 
 .btn-azul {
   background: var(--azul);
@@ -97,6 +98,11 @@ textarea {
 
 .btn-cinza {
   background: var(--cinza-escuro);
+  color: #fff;
+}
+
+.btn-excluir {
+  background: var(--vermelho);
   color: #fff;
 }
 
