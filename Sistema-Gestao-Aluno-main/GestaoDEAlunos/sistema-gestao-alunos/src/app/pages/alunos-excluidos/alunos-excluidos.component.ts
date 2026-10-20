@@ -37,11 +37,16 @@ export class AlunosExcluidosComponent implements OnInit {
   private carregarAlunosExcluidos(): void {
 
     this.alunoService
-    .listarExcluidos()
+    .listarExcluidos({
+      busca: this.busca(),
+      pagina: this.paginaAtual()
+    })
     .subscribe({
       next: (response) => {
-        console.log('Alunos excluídos carregados com sucesso', response.conteudo);
+        
         this.alunos.set(response.conteudo);
+        this.totalPaginas.set(response.totalPaginas);
+        this.paginaAtual.set(response.paginaAtual);
       },
       error: (err) => {
         console.error('Erro ao carregar alunos excluídos', err);
@@ -50,9 +55,15 @@ export class AlunosExcluidosComponent implements OnInit {
   }
 
 aoDigitarBusca(evento: Event): void {
-    const valor = (evento.target as HTMLInputElement).value;
-    this.buscaDigitada.next(valor);
-  }
+
+  const valor =
+    (evento.target as HTMLInputElement).value;
+
+  this.busca.set(valor);
+
+  this.carregarAlunosExcluidos();
+
+}
 
 
  
@@ -104,4 +115,6 @@ aoDigitarBusca(evento: Event): void {
     });
 
 }
+
+
 }
