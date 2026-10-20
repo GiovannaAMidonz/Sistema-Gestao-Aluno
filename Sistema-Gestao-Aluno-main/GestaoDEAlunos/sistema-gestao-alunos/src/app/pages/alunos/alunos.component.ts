@@ -8,12 +8,14 @@ import { Aluno, StatusAluno } from '../../models/aluno';
 import { ConfirmarExclusaoComponent } from '../../components/confirmar-exclusao/confirmar-exclusao';
 import { AuthService } from '../../services/auth';
 
+
 @Component({
   selector: 'app-alunos',
   imports: [RouterLink, ConfirmarExclusaoComponent],
   templateUrl: './alunos.component.html',
   styleUrl: './alunos.component.css',
 })
+
 export class AlunosComponent implements OnInit {
   private readonly alunoService = inject(AlunoService);
   private readonly router = inject(Router);
@@ -193,5 +195,9 @@ export class AlunosComponent implements OnInit {
 
   statusLabel(status: StatusAluno): string {
     return status === 'ATIVO' ? 'Ativo' : 'Inativo';
+  }
+
+  irParaExcluidos(): void {
+  this.router.navigate(['/alunos/excluidos']);
   }
 }

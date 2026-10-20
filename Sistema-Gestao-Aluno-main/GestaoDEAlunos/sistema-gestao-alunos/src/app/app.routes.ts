@@ -6,6 +6,7 @@ import { NovoAlunoComponent } from './pages/novo-aluno/novo-aluno.component';
 import { alteracoesNaoSalvasGuard } from './guards/alteracoes-nao-salvas.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard, loginGuard } from './guards/auth.guard';
+import { AlunosExcluidosComponent } from './pages/alunos-excluidos/alunos-excluidos.component';
 
 export const routes: Routes = [
 
@@ -21,8 +22,22 @@ export const routes: Routes = [
         title: 'Novo Aluno',
         canDeactivate: [alteracoesNaoSalvasGuard],
       },
-      { path: 'alunos/:id', component: AlunoDetalhesComponent, title: 'Detalhes do Aluno' },
-      { path: 'alunos/:id/editar', component: AlunoFormComponent, title: 'Editar Aluno', canDeactivate: [alteracoesNaoSalvasGuard] },
+
+      { path: 'alunos/:id',
+         component: AlunoDetalhesComponent, 
+         title: 'Detalhes do Aluno' 
+        },
+
+      { path: 'alunos/:id/editar',
+         component: AlunoFormComponent,
+          title: 'Editar Aluno', 
+          canDeactivate: [alteracoesNaoSalvasGuard]
+         },
+
+      { path: 'alunos/excluidos',
+         component: AlunosExcluidosComponent, 
+         title: 'Alunos Excluídos'
+         },
     ],
   },
   { path: '**', redirectTo: '' },
