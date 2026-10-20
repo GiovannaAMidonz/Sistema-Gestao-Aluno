@@ -26,11 +26,6 @@ export class AlunosComponent implements OnInit {
 
   readonly notificacao = inject(NotificacaoService);
 
-
-
-
-
-
   readonly alunos = signal<Aluno[]>([]);
   readonly paginaAtual = signal(0);
   readonly totalPaginas = signal(0);
@@ -48,6 +43,7 @@ export class AlunosComponent implements OnInit {
   readonly erroExclusao = signal<string | null>(null);
 
 
+  private readonly buscaDigitada = new Subject<string>();
 
 
 
@@ -61,12 +57,6 @@ export class AlunosComponent implements OnInit {
     () => this.totalPaginas() === 0 || this.paginaAtual() >= this.totalPaginas() - 1,
   );
 
-
-
-
-
-
-  private readonly buscaDigitada = new Subject<string>();
 
   ngOnInit(): void {
     this.buscaDigitada

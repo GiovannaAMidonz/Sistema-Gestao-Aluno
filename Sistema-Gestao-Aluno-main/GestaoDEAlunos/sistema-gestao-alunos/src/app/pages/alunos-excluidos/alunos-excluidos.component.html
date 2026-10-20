@@ -4,8 +4,39 @@
     <a class="btn btn-secundario" routerLink="/">Voltar</a>
   </header>
 
-@for (aluno of alunos(); track aluno.id) {
-  <p>{{ aluno.matricula }}</p>
-  <p>{{ aluno.nomeCompleto }}</p>
-}
+
+  <div class="filtros">
+    <div class="campo-busca">
+      <svg class="icone-busca" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <line x1="16.5" y1="16.5" x2="21" y2="21" />
+      </svg>
+      <input
+        type="text"
+        placeholder="Buscar por nome ou matrícula..."
+        aria-label="Buscar aluno"
+        [value]="busca()"
+        (input)="aoDigitarBusca($event)"
+      />
+    </div>
+  </div>
+    <select class="select-status" aria-label="Filtrar por status" (change)="aoMudarStatus($event)">
+      <option value="" [selected]="status() === ''">Todos</option>
+      <option value="ATIVO" [selected]="status() === 'ATIVO'">Ativo</option>
+      <option value="INATIVO" [selected]="status() === 'INATIVO'">Inativo</option>
+    </select>
+ 
+
+
+  @if (notificacao.mensagem(); as msg) {
+    <div class="alerta-sucesso" role="status">
+      <span>{{ msg }}</span>
+      <button type="button" class="fechar-alerta" (click)="notificacao.limpar()" aria-label="Fechar">&times;</button>
+    </div>
+  }
+
+
+  @if (erro()) {
+    <p class="alerta-erro">{{ erro() }}</p>
+  }
 </section>
