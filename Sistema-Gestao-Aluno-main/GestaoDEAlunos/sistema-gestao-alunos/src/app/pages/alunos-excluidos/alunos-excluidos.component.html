@@ -49,6 +49,7 @@
               <td>
                 <div class="acoes">
                   <button class="btn btn-primario" (click)="restaurarAluno(aluno.id)">Restaurar</button>
+            
                 </div>
               </td>
             </tr>
@@ -57,4 +58,30 @@
       </tbody>
     </table>
   </div>
+
+  @if (totalPaginas() > 1) {
+    <nav class="paginacao" aria-label="Paginação">
+      <button type="button" class="pagina-seta" [disabled]="ehPrimeiraPagina()" (click)="paginaAnterior()" aria-label="Página anterior">
+        &#8249;
+      </button>
+
+
+      @for (pagina of paginas(); track pagina) {
+        <button
+          type="button"
+          class="pagina-numero"
+          [class.ativa]="pagina === paginaAtual()"
+          (click)="irParaPagina(pagina)"
+        >
+          {{ pagina + 1 }}
+        </button>
+      }
+
+      <button type="button" class="pagina-seta" [disabled]="ehUltimaPagina()" (click)="proximaPagina()" aria-label="Próxima página">
+        &#8250;
+      </button>
+    </nav>
+  }
+
+  <p class="rodape-total">Total de alunos: {{ total() }}</p>
 </section>

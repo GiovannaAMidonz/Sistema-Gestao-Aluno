@@ -13,9 +13,11 @@ export class ConfirmarExclusaoComponent {
   readonly erro = input<string | null>(null);
   readonly confirmar = output<void>();
   readonly cancelar = output<void>();
+ 
+  readonly observacao = input('');
   private readonly dialogo = viewChild<ElementRef<HTMLDialogElement>>('dialogo');
   private focoAnterior: Element | null = null;
-
+ 
   constructor() {
 
     afterRenderEffect(() => {

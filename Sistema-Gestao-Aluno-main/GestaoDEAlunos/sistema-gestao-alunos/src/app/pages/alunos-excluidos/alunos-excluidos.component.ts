@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,computed } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OnInit, inject, signal } from '@angular/core';
 import { StatusAluno } from '../../models/aluno';
@@ -29,26 +29,34 @@ export class AlunosExcluidosComponent implements OnInit {
 
   readonly paginaAtual = signal(0);
   readonly totalPaginas = signal(0);
+  readonly total = signal(0);
+  readonly alunoParaRestaurar = signal<Aluno | null>(null);
 
-   private readonly buscaDigitada = new Subject<string>();
-
+  private readonly buscaDigitada = new Subject<string>();
+ readonly ehPrimeiraPagina = computed(() => this.paginaAtual() === 0);
+  readonly ehUltimaPagina = computed(
+    () => this.totalPaginas() === 0 || this.paginaAtual() >= this.totalPaginas() - 1,
+  );
+  readonly paginas = computed(() => Array.from({ length: this.totalPaginas() }, (_, i) => i));
   ngOnInit(): void {
     this.carregarAlunosExcluidos();
   }
 
   private carregarAlunosExcluidos(): void {
-
-    this.alunoService
+  this.alunoService
     .listarExcluidos({
       busca: this.busca(),
-      pagina: this.paginaAtual()
+      pagina: this.paginaAtual(),
+      tamanho: 10,
+      ordenarPor: 'nomeCompleto',
+      direcao: 'asc'
     })
     .subscribe({
       next: (response) => {
-        
         this.alunos.set(response.conteudo);
         this.totalPaginas.set(response.totalPaginas);
         this.paginaAtual.set(response.paginaAtual);
+        this.total.set(response.total);
       },
       error: (err) => {
         console.error('Erro ao carregar alunos excluídos', err);
@@ -79,6 +87,7 @@ aoDigitarBusca(evento: Event): void {
     this.carregarAlunosExcluidos();
   }
 
+
   paginaAnterior(): void {
     this.irParaPagina(this.paginaAtual() - 1);
   }
@@ -96,27 +105,20 @@ aoDigitarBusca(evento: Event): void {
   this.alunoService
     .restaurar(id)
     .subscribe({
-
       next: () => {
-
-        console.log('Aluno restaurado com sucesso');
-
+        alert('Aluno restaurado com sucesso');
         this.carregarAlunosExcluidos();
-
       },
-
       error: (err) => {
-
         console.error(
           'Erro ao restaurar aluno',
           err
         );
-
+        alert('Erro ao restaurar aluno');
       }
 
     });
 
 }
-
-
+ 
 }
