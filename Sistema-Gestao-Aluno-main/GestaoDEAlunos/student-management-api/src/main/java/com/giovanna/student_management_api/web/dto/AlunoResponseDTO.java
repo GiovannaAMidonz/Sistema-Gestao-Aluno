@@ -5,6 +5,8 @@ import com.giovanna.student_management_api.domain.enums.StatusAlunosEnum;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 public record AlunoResponseDTO(
         Long id,
         String matricula,
@@ -13,7 +15,8 @@ public record AlunoResponseDTO(
         String email,
         String telefone,
         String fotoUrl,
-        StatusAlunosEnum status
+        StatusAlunosEnum status,
+        LocalDateTime dataExclusao
 ){
 }
 

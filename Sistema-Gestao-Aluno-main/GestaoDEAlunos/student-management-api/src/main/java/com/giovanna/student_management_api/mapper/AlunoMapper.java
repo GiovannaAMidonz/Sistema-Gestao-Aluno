@@ -18,7 +18,8 @@ public class AlunoMapper {
                 aluno.getEmail(),
                 aluno.getTelefone(),
                 aluno.getFotoUrl(),
-                aluno.getStatus()
+                aluno.getStatus(),
+                aluno.getDataExclusao()
         );
     }
 
