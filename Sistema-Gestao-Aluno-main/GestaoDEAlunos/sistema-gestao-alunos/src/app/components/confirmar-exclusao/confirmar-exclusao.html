@@ -1,6 +1,6 @@
 <dialog #dialogo aria-labelledby="titulo-exclusao" aria-describedby="descricao-exclusao"
   (cancel)="aoCancelar($event)" (close)="aoFechar()">
-  <h2 id="titulo-exclusao">Confirmar Exclusão</h2>
+  <h2 id="titulo-exclusao">Confirmar Ação</h2>
   @if (aluno(); as a) {
     <p id="descricao-exclusao">Deseja realmente excluir o aluno <strong>{{ a.nomeCompleto }}</strong>
       (matrícula <strong>{{ a.matricula }}</strong>)?</p>

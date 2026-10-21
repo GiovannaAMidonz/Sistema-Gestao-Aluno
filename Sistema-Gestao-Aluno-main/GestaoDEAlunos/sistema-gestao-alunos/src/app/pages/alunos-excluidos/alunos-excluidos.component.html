@@ -27,6 +27,7 @@
           <th>Matrícula</th>
           <th>Nome</th>
           <th>Status</th>
+          <th>Data de Exclusão</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -34,7 +35,7 @@
       <tbody>
         @if (carregando()) {
           <tr>
-            <td colspan="4" class="linha-info">Carregando...</td>
+            <td colspan="5" class="linha-info">Carregando...</td>
           </tr>
         } @else {
 
@@ -43,6 +44,8 @@
               <td>{{ aluno.matricula }}</td>
               <td>{{ aluno.nomeCompleto }}</td>
               <td>{{ statusLabel(aluno.status) }}</td>
+              <td>{{ aluno.dataExclusao | date:'dd/MM/yyyy HH:mm' }}</td>
+              
               <td>
                 <div class="acoes">
                   <button class="btn btn-primario" (click)="restaurarAluno(aluno.id)">Restaurar</button>

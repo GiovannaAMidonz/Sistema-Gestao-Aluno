@@ -7,8 +7,10 @@ import { AlunoService } from '../../services/aluno.service';
 import { Aluno } from '../../models/aluno';
 import { NotificacaoService } from '../../services/notificacao';
 import { Subject } from 'rxjs';
+import { DatePipe } from '@angular/common';
+
 @Component({
-  imports: [RouterModule],
+  imports: [RouterModule, DatePipe],
   selector: 'app-alunos-excluidos',
   styleUrls: ['./alunos-excluidos.component.css'],
   templateUrl: './alunos-excluidos.component.html',

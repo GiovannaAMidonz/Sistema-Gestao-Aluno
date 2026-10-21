@@ -11,6 +11,7 @@ export interface Aluno {
   telefone: string;
   fotoUrl: string | null;
   status: StatusAluno;
+  dataExclusao?: string;
 }
 
 export type AtualizarAlunoRequest = Pick<Aluno, 'nomeCompleto' | 'email' | 'telefone' | 'fotoUrl' | 'status'>;
